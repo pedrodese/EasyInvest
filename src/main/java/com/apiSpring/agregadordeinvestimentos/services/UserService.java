@@ -1,5 +1,6 @@
 package com.apiSpring.agregadordeinvestimentos.services;
 
+import com.apiSpring.agregadordeinvestimentos.DTOs.CreateAccountDto;
 import com.apiSpring.agregadordeinvestimentos.DTOs.CreateUserDto;
 import com.apiSpring.agregadordeinvestimentos.DTOs.UpdateUserDTO;
 import com.apiSpring.agregadordeinvestimentos.entity.User;
@@ -73,4 +74,9 @@ public class UserService {
     }
 
 
+    public void createAccount(String userId, CreateAccountDto createAccountDto) {
+        var id = UUID.fromString(userId);
+
+        var userEntity = userRepository.findById(id);
+    }
 }
