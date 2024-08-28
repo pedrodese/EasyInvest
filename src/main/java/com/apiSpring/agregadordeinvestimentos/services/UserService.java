@@ -1,5 +1,6 @@
 package com.apiSpring.agregadordeinvestimentos.services;
 
+import com.apiSpring.agregadordeinvestimentos.DTOs.AccountResponseDto;
 import com.apiSpring.agregadordeinvestimentos.DTOs.CreateAccountDto;
 import com.apiSpring.agregadordeinvestimentos.DTOs.CreateUserDto;
 import com.apiSpring.agregadordeinvestimentos.DTOs.UpdateUserDTO;
@@ -111,5 +112,18 @@ public class UserService {
         billingAddressRepository.save(billingAddress);
 
 
+    }
+
+    public List<AccountResponseDto> listAccounts(String userId) {
+        var user = userRepository.findById(UUID.fromString(userId))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        return user.getAccounts()
+                .stream()
+                .map(ac -> new AccountResponseDto(
+                        ac.getAccountId().toString(),
+                        ac.getDescription()
+                ))
+                .toList();
     }
 }

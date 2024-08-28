@@ -1,5 +1,6 @@
 package com.apiSpring.agregadordeinvestimentos.controllers;
 
+import com.apiSpring.agregadordeinvestimentos.DTOs.AccountResponseDto;
 import com.apiSpring.agregadordeinvestimentos.DTOs.CreateAccountDto;
 import com.apiSpring.agregadordeinvestimentos.DTOs.CreateUserDto;
 import com.apiSpring.agregadordeinvestimentos.DTOs.UpdateUserDTO;
@@ -65,6 +66,13 @@ public class UserController {
                                               @RequestBody CreateAccountDto createAccountDto){
         userService.createAccount(userId, createAccountDto);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{userId}/accounts")
+    public ResponseEntity<List<AccountResponseDto>> getAccountsById(@PathVariable("userId") String userId){
+        var accounts = userService.listAccounts(userId);
+
+        return ResponseEntity.ok(accounts);
     }
 
 }
